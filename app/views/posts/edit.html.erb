@@ -1,0 +1,43 @@
+<h1>Recipe 編集</h1>
+<% if @post.errors.any? %>
+  <%= pluralize(@post.errors.count, "error") %> prohibited this object from being saved: not successfully
+
+  <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>
+<%= form_for @post do |f|%>
+
+<%=f.label :"カテゴリー" %>
+<%=f.radio_button :is_light, :false %>
+<%=f.label:増量,class: "is_light_label" %>
+<%=f.radio_button :is_light, :true %>
+<%=f.label:減量,class: "is_light_label" %>
+
+
+<%=f.label :レシピ名 %>
+<%=f.text_field :title %>
+
+<%=f.label :カロリー %>
+<%=f.text_field :calorie %>kcal
+
+<%=f.label :写真 %>
+  <%= attachment_image_tag @post, :image, :fill, 200,200, format: "jpeg", fallback: 'no-image.png', onClick: "$('.img_field').click()", class: "center-block img-thumbnail img-responsive img_prev pull-left profile-img", fallback: "no_image.jpg", :width => "200", :height => "200" %>
+<%=f.attachment_field :image, class: 'img_field' %>
+
+<%=f.label :説明 %>
+<%=f.text_area :body %>
+
+<%=f.label :材料 %>
+<%=f.text_area :material %>
+
+<%=f.label :作り方 %>
+<%=f.text_area :procedure %>
+
+<%=f.submit"更新"%>
+<% end %>
+
+
+
+
+

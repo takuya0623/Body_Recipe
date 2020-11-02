@@ -1,0 +1,55 @@
+<h1>Recipe</h1>
+
+<% if @post.errors.any? %>
+  <%= pluralize(@post.errors.count, "error") %> prohibited this object from being saved: not successfully
+
+  <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>
+
+<%=form_for @post do |f| %>
+<table class="table table-borderless">
+  
+  <tr>
+    <td><%=f.label :title, "レシピ名" %></td>
+    <td><%=f.text_field :title %></td>
+    
+    <td><%=f.label :"カテゴリー" %></td>
+    <td><%=f.radio_button :is_light, :false %>
+    <%=f.label:増量,class: "is_light_label" %>
+      <%=f.radio_button :is_light, :true %>
+      <%=f.label:減量,class: "is_light_label" %>
+    </td>
+
+  </tr>
+
+  <tr>
+    <td><%=f.label :calorie, "カロリー" %></td>
+    <td><%=f.text_field :calorie %>kcal</td>
+    
+    <td><%=f.label :body, "説明" %></td>
+    <td><%=f.text_area :body %></td>
+  </tr>
+
+  <tr>
+    <td><%=f.label :image, "写真" %></td>
+    <td>
+      <%= attachment_image_tag @post, :image, :fill, 200,200, format: "jpeg", fallback: 'no-image.png', onClick: "$('.img_field').click()", class: "center-block img-thumbnail img-responsive img_prev pull-left profile-img", fallback: "no_image.jpg", :width => "200", :height => "200" %>
+      <%=f.attachment_field :image, class: 'img_field' %>
+    </td>
+  </tr>
+
+  <tr>
+    <td><%=f.label :material, "材料" %></td>
+    <td><%=f.text_area :material %></td>
+  </tr>
+
+  <tr>
+    <td><%=f.label :procedure, "作り方" %></td>
+    <td><%=f.text_area :procedure %></td>
+  <tr>
+</table>
+
+  <%=f.submit "投稿", class: "btn btn-primary btn-lg" %>
+<% end %>

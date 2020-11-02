@@ -1,0 +1,57 @@
+<h1>My page</h1>
+
+<%= attachment_image_tag @user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
+
+<table class="table table-borderless">
+  <tr>
+    <th>Username</th>
+    <td><%= @user.username %></td>
+  </tr>
+  <tr>
+    <% if @user.id == current_user.id%>
+      <th>e-mail</th>
+      <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <th>Profile</th>
+    <td><%= @user.profile %></td>
+  </tr>
+  <tr>
+    <th><%=link_to"編集",edit_user_path(@user) %></th>
+  </tr>
+    <% end %>
+</table>
+
+
+<% @user.posts.each do |post|%>
+  
+
+  <ul style="list-style: none;">
+  <li>
+    <%=attachment_image_tag post, :image, size: "300x300" %>
+  </li>
+  <li>
+    <%=post.title%>
+    <% if post.is_light==false %>
+      （増量レシピ）
+    <% else %>
+      （減量レシピ）
+    <% end %>
+  </li>
+  <li>
+    <%=link_to "詳細", post_path(post) %>
+
+    <% if @user.id == current_user.id %>
+    <%=link_to "編集",edit_post_path(post) %>
+    
+    <%=link_to "削除",post_path(post), method: :delete, data: {confirm: "削除しますか？"} %>
+
+    <% end %>
+  </li>
+  <li>
+    <%=post.updated_at.strftime("%Y-%m-%d %H:%M") %>更新
+  </li>
+</ul>
+<% end %>
+
+

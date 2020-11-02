@@ -7,21 +7,46 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+
   </head>
 
   <body>
-    <% if flash[:notice] %>
-      <div class="notification is-info">
-        <p class="notice"><%= notice %></p>
-      </div>
-    <% end %>
+    <header class= "sticky-top">
 
-    <% if flash[:alert] %>
-      <div class="notification is-danger">
-    <p class="alert"><%= alert %></p>
-      </div>
-    <% end %>
+    <nav class="nav navbar-nav navbar-left" style="background-color: #FFCC66;">
+    <%= link_to root_path,class: "navbar-item" do%>
+      <h2 class="title is-4" style="font-family: fantasy;">Body_Recipe</h2>
+      <% end %>
     
+
+    <ul class="navbar-expand-lg">
+    
+    <% if user_signed_in? %>
+      
+      <li><%=link_to"投稿を見る",posts_path %></li>
+      <li><%=link_to"投稿する",new_post_path %></li>
+      <li><%=link_to"シェフ",users_path %></li>
+      <li><%=link_to"マイページ",user_path(current_user) %></li>
+      <li><%= link_to "ログアウト",destroy_user_session_path,method: :delete %></li>
+      <li>食材一覧</li>
+    
+    <%else%>
+
+      <li><%=link_to"chefs",users_path%></li>
+      <li><%=link_to "about" %></li>
+      <li><%=link_to "新規登録",new_user_registration_path %></li>
+      <li><%=link_to "ログイン",new_user_session_path %></li>
+    <% end %>
+  </ul>
+  </nav>
+  
+  </header>
+  <%= render 'layouts/flashes' %>
+  
     <%= yield %>
+  
   </body>
 </html>
