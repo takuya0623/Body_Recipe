@@ -2,11 +2,30 @@
 
 <%= attachment_image_tag @user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
 
+<% unless @user == current_user %>
+		<% if current_user.following?(@user) %>
+			<%= link_to 'フォロー外す', unfollow_path(@user.id),class: "btn btn-primary", method: :POST %>
+		<% else %>
+		<%= link_to 'フォローする', follow_path(@user.id), class: "btn btn-success", method: :POST %>
+	<% end %>
+<% end %>
 <table class="table table-borderless">
   <tr>
     <th>Username</th>
     <td><%= @user.username %></td>
+    <td>
+      <%= link_to follows_path(@user.id) do %>
+        <%= "フォロー数: #{@user.follower.count}" %>
+      <% end %>
+      </td>
+    
+    <td>
+    <%= link_to followed_path(@user.id) do%>
+    <%= "フォロワー数: #{@user.followed.count}" %>
+    <% end %>
+    </td>
   </tr>
+  
   <tr>
     <% if @user.id == current_user.id%>
       <th>e-mail</th>
@@ -15,6 +34,9 @@
   <tr>
     <th>Profile</th>
     <td><%= @user.profile %></td>
+  </tr>
+  <tr>
+
   </tr>
   <tr>
     <th><%=link_to"編集",edit_user_path(@user) %></th>

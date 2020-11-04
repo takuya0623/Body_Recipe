@@ -24,7 +24,7 @@
     <% else %>
       （減量レシピ）
     <% end %>
-    
+
     <% if current_user.already_favorited?(post) %>
       <%= link_to post_favorites_path(post), method: :delete do %>
         <i class="fas fa-heart"></i>
@@ -34,9 +34,8 @@
       <i class="far fa-heart"></i>
       <% end %>
     <% end %>
-    <%= post.favorites.count %>
+    <%=post.favorites.count%>
   </li>
-  
   <%=post.comments.count%>コメント 
 
     <li>

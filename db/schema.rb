@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_131232) do
+ActiveRecord::Schema.define(version: 2020_11_03_012249) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 2020_11_02_131232) do
     t.text "material", null: false
     t.string "calorie", null: false
     t.boolean "is_light", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
