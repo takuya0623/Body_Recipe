@@ -33,8 +33,19 @@ class UsersController < ApplicationController
     end
   end 
 
+  def withdraw
+  end
+  
+  def change
+    @user = current_user
+    if @user.update(is_deleted: true)
+      sign_out current_user
+    end
+    redirect_to root_path
+  end
+
 private 
   def user_params
-    params.require(:user).permit(:username,:email,:profile,:profile_image)
+    params.require(:user).permit(:username,:email,:profile,:profile_image,:is_deleted)
   end
 end

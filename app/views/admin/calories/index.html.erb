@@ -1,0 +1,32 @@
+<% @calories.each do |calorie| %>
+
+<ul style="list-style: none;">
+
+  <li>
+    <%=calorie.name%>
+  </li>
+
+  <li>
+    <%=calorie.weight%>g
+  </li>
+
+  <li>
+    <%=calorie.calorie%>Kcal
+  </li>
+
+  <li>
+  <% if calorie.is_active ==true %>
+        有効
+      <% else %>
+        無効
+      <% end %>
+  </li> 
+  <li>
+    <%=link_to"編集",edit_admin_calory_path(calorie), class: "btn btn-success" %>
+    <%=link_to "削除",admin_calory_path(calorie), method: :delete, data: {confirm: "削除しますか？"} %>
+
+  </li>
+
+</ul>
+<% end %>
+

@@ -31,6 +31,10 @@ class User < ApplicationRecord
   def already_favorited?(post)
     self.favorites.exists?(post_id: post.id)
   end
+
+  def active_for_authentication?
+    super && (self.is_deleted == false)
+  end
 end
 
 

@@ -1,0 +1,19 @@
+<% @calories.each do |calorie| %>
+  <ul style="list-style: none;">
+
+    <li>
+      <%=calorie.name%>
+    </li>
+
+    <li>
+      <%=calorie.weight%>g
+    </li>
+
+    <li>
+      <%=calorie.calorie%>Kcal
+    </li>
+  
+  </ul>
+
+
+<% end %>

@@ -1,0 +1,32 @@
+<h1>nitiha</h1>
+
+<% if @calorie.errors.any? %>
+  <%= pluralize(@calorie.errors.count, "error") %> prohibited this object from being saved: not successfully
+
+  <% @calorie.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>
+
+
+
+
+<%=form_for @calorie, url:admin_calories_path, method: :post do |f| %>
+
+<%=f.label :name, "材料名" %>
+<%=f.text_field :name %>
+
+<%=f.label :weight, "重量" %>
+<%=f.text_field :weight %>g
+
+<%# <%=f.label :calorie, " "%> 
+<%=f.text_field :calorie %>Kcal
+
+<%=f.label :"カテゴリー" %>
+  <%=f.radio_button :is_active, :true %>
+    <%=f.label:有効,class: "is_active_label" %>
+  <%=f.radio_button :is_active, :false %>
+    <%=f.label:無効,class: "is_active_label" %>
+
+<%=f.submit %>
+<% end %>
