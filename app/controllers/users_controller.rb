@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.all
+    @users = User.where(is_deleted: false)
   end
 
   def show
@@ -37,11 +37,10 @@ class UsersController < ApplicationController
   end
   
   def change
-    @user = current_user
-    if @user.update(is_deleted: true)
+    current_user.unsubscribe!
       sign_out current_user
-    end
     redirect_to root_path
+    
   end
 
 private 

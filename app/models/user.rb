@@ -35,6 +35,39 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && (self.is_deleted == false)
   end
+
+  def unsubscribe!
+    
+    ActiveRecord::Base.transaction do
+      update!(is_deleted:true)
+      comments.each do |comment| 
+      comment.destroy! 
+      end
+
+      followed.each do |follow| 
+        follow.destroy! 
+      end
+
+      follower.each do |follow| 
+        follow.destroy! 
+      end
+
+      favorites.each do |favorite| 
+        favorite.destroy! 
+      end
+        
+      posts.each do |post| 
+        post.destroy! 
+      end
+
+      
+    end
+    begin
+      # 成功時
+    rescue => e
+      Rails.logger.info "Rendering 500 with Exception: #{e}"
+    end
+  end
 end
 
 

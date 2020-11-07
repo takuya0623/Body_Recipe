@@ -1,81 +1,92 @@
-<h1>My page</h1>
+<div class="container">
+  <h1>My page</h1>
+    <div class="row" mt-5>
+      <div class="col-lg-10">
+        <%= attachment_image_tag @user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
 
-<%= attachment_image_tag @user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
+        <% unless @user == current_user %>
+            <% if current_user.following?(@user) %>
+              <%= link_to 'フォロー外す', unfollow_path(@user.id),class: "btn btn-primary", method: :POST %>
+            <% else %>
+            <%= link_to 'フォローする', follow_path(@user.id), class: "btn btn-success", method: :POST %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
 
-<% unless @user == current_user %>
-		<% if current_user.following?(@user) %>
-			<%= link_to 'フォロー外す', unfollow_path(@user.id),class: "btn btn-primary", method: :POST %>
-		<% else %>
-		<%= link_to 'フォローする', follow_path(@user.id), class: "btn btn-success", method: :POST %>
-	<% end %>
-<% end %>
-<table class="table table-borderless">
-  <tr>
-    <th>Username</th>
-    <td><%= @user.username %></td>
-    <td>
-      <%= link_to follows_path(@user.id) do %>
-        <%= "フォロー数: #{@user.follower.count}" %>
-      <% end %>
-      </td>
-    
-    <td>
-    <%= link_to followed_path(@user.id) do%>
-    <%= "フォロワー数: #{@user.followed.count}" %>
-    <% end %>
-    </td>
-  </tr>
-  
-  <tr>
-    <% if @user.id == current_user.id%>
-      <th>e-mail</th>
-      <td><%= @user.email %></td>
-  </tr>
-  <tr>
-    <th>Profile</th>
-    <td><%= @user.profile %></td>
-  </tr>
-  <tr>
+    <div class="row">
+      <div class="col-lg-8">
+      
+        <table class="table table-borderless">
+          <tr>
+            <th>Username</th>
+            <td><%= @user.username %></td>
+            <td><%= link_to follows_path(@user.id) do %>
+                  <%= "フォロー数: #{@user.follower.count}" %>
+                <% end %>
+                <%= link_to followed_path(@user.id) do%>
+                  <%= "フォロワー数: #{@user.followed.count}" %>
+                <% end %>
+            </td>
+          </tr>
+          <tr>
+          <% if @user.id == current_user.id%>
+            <th>e-mail</th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th>Profile</th>
+            <td><%= @user.profile %></td>
+          </tr>
+          <tr>
+            <th><%=link_to"編集",edit_user_path(@user) %></th>
+            <%= link_to "退会する", withdraw_user_path, class: "btn btn-danger mb-5" %>
+          </tr>          
+          <% end %>      
+      </table>
+      </div>
+    </div>
+    <h2>投稿一覧</h2>
+    <div class="row mt-5">
+      <div class="col-lg-10 offset-4">
+        <% @user.posts.each do |post|%>
+          
+          <ul style="list-style: none;">
+          <li>
+            <%=attachment_image_tag post, :image, size: "300x300" %>
+          </li>
+          <li>
+            <%=post.title%>
+            <% if post.is_light==false %>
+              （増量レシピ）
+            <% else %>
+              （減量レシピ）
+            <% end %>
+          </li>
+          <li>
+            <%=link_to "詳細", post_path(post) %>
 
-  </tr>
-  <tr>
-    <th><%=link_to"編集",edit_user_path(@user) %></th>
-    <%= link_to "退会する", withdraw_user_path, class: "btn btn-danger mb-5" %>
-  </tr>
-  
-    <% end %>
-</table>
+            <% if @user.id == current_user.id %>
+            <%=link_to "編集",edit_post_path(post) %>
+            
+            <%=link_to "削除",post_path(post), method: :delete, data: {confirm: "削除しますか？"} %>
 
-
-<% @user.posts.each do |post|%>
-  
-
-  <ul style="list-style: none;">
-  <li>
-    <%=attachment_image_tag post, :image, size: "300x300" %>
-  </li>
-  <li>
-    <%=post.title%>
-    <% if post.is_light==false %>
-      （増量レシピ）
-    <% else %>
-      （減量レシピ）
-    <% end %>
-  </li>
-  <li>
-    <%=link_to "詳細", post_path(post) %>
-
-    <% if @user.id == current_user.id %>
-    <%=link_to "編集",edit_post_path(post) %>
-    
-    <%=link_to "削除",post_path(post), method: :delete, data: {confirm: "削除しますか？"} %>
-
-    <% end %>
-  </li>
-  <li>
-    <%=post.updated_at.strftime("%Y-%m-%d %H:%M") %>更新
-  </li>
-</ul>
-<% end %>
+            <% end %>
+          </li>
+          <li>
+            <%=post.updated_at.strftime("%Y-%m-%d %H:%M") %>更新
+          </li>
+        </ul>
+        <% end %>
+      </div>
+    </div>
 
 
+
+
+
+
+
+
+
+</div>

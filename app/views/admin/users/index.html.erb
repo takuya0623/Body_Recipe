@@ -1,0 +1,33 @@
+<h4 class="mt-5 ml-5 mb-4">会員一覧</h4>
+
+  <table class="table table-striped table-hover mb-5">
+    <tr>
+      <th>会員ID</th>
+      <th>ユーザー名</th>
+      <th>メールアドレス</th>
+      <th>ステータス</th>
+    </tr>
+    <% @users.each do|user| %>
+    <tr>
+      <td>
+        <%=user.id%>
+      </td>
+      <td>
+        <%= link_to admin_user_path(user) do %>
+          <%=user.username%>
+        <% end %>
+      </td>
+      <td>
+        <%=user.email%>
+      </td>
+      <td>
+        <%if user.is_deleted==false%>
+        有効
+        <%else%>
+        退会済み
+        <%end%>
+      </td>
+    </tr>
+    <% end %>
+
+  </table>

@@ -26,13 +26,13 @@
 <%=f.attachment_field :image, class: 'img_field' %>
 
 <%=f.label :説明 %>
-<%=f.text_area :body %>
+<%=f.text_area :body,:size=>"50x10" %>
 
 <%=f.label :材料 %>
-<%=f.text_area :material %>
+<%=f.text_area :material,:size=>"50x10" %>
 
 <%=f.label :作り方 %>
-<%=f.text_area :procedure %>
+<%=f.text_area :procedure,:size=>"50x10" %>
 
 <%=f.submit"更新"%>
 <% end %>

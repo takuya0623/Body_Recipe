@@ -11,6 +11,8 @@ end
   
   namespace :admin do
     resources :calories
+    resources :users, only: [:index, :show, :edit, :update]
+    root to: 'home#top'
   end
   
   
@@ -34,6 +36,12 @@ end
 
   patch 'user/change' => 'users#change', as: 'users_change'
 
-  root to: "home#index"
+  root to: "home#top"
+  get 'home/about' => 'home#about', as: 'about'
+
+  get 'userpass/reset' => 'reset#send', as: 'reset_userpass'
+
+  put 'userpass/reset' => 'reset#send', as: 'user_reset_userpass'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

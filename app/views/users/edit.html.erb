@@ -20,7 +20,7 @@
 <%=f.text_field :email %>
 
 <%=f.label :profile %>
-<%=f.text_field :profile %>
+<%=f.text_field :profile,:size=>"30x10" %>
 
 <%=f.label :profile_image %>
   <%= attachment_image_tag @user, :profile_image, :fill, 200,200, format: "jpeg", fallback: 'no-image.png', onClick: "$('.img_field').click()", class: "center-block img-thumbnail img-responsive img_prev pull-left profile-img", fallback: "no_image.jpg", :width => "200", :height => "200" %>

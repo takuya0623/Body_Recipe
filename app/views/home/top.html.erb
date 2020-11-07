@@ -1,0 +1,55 @@
+<section class="hero">
+  <div class="hero__slider owl-carousel">
+    <div class="hero__item">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <div class="hero__text">
+              <h1>理想のカラダへ</h1><br>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mt-5">
+    <h2>ランキング<i class="fas fa-crown" style="color:yellow;"></i></h2>
+    
+      
+    <table>
+      <% @all_ranks.each.with_index(1) do |post,i| %>
+        <tr>
+          <td>第<%=i%>位
+            <%=link_to post_path(post) do %>
+              <%=post.title%>
+            <% end %>
+
+            <% if post.is_light==false %>
+            （増量レシピ）
+            <% else %>
+            （減量レシピ）
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%=attachment_image_tag post, :image, size: "150x150" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            いいね<%=post.favorites.count%>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    </div>  
+  </div>
+</div>
+
+

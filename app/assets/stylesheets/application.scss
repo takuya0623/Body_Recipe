@@ -16,6 +16,11 @@
 
 @import "bootstrap";
 
+
+body {
+  background-color:#CCFFFF;
+  }
+
 nav{
   text-align: center;
   }
@@ -45,3 +50,22 @@ nav{
     opacity: 0.7;
     transform: scale(1.01, 1.01);
   }
+
+// top画面
+  .hero__item {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    background-image: url("image1.jpg");
+  }
+
+  .hero__text {
+    text-align: center;
+    padding: 65px 70px 70px;
+    position: relative;
+    font-size: 100%;
+  }
+  
+
+  
