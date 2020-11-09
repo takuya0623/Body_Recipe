@@ -2,9 +2,9 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(4)
     if params[:is_light].present?
-      @posts = Post.where(is_light: params[:is_light])
+      @posts = Post.where(is_light: params[:is_light]).page(params[:page]).per(4)
     end
   end
 

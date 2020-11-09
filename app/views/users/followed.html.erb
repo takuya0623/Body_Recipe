@@ -1,21 +1,26 @@
-<h3>Follower User</h3>
-	<% if @user.follower_user.count == 0 %>
-	 <p>フォロワーはいません<p>
-	 <% else %>
-  <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
-  <table class="table table-hover table-inverse">
-	<tr>
-		<th>image</th>
-		<th>name</th>
-	</tr>
-	<tr>
-		<td class="image"><%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg",size: "60x60"  %></td>
-		<td class="name"><%=user.username %></td>
-		<td>フォロー数:<%=user.follower.count %></td>
-		<td>フォロワー数:<%=user.followed.count %></td>
+<div class="container">
+  <div class="row">
+    <h2 class="col-lg-4 mb-5">Follower User</h2>   
+    <% if @user.following_user.count == 0 %>
+      <p>フォロワーはいません<p>
+    <% else %> 
+  </div>      
 
-		<td class="show"><%=link_to"Show",user_path(@user.id) %></td>
-	</tr>
-	<% end %>
-</table>
-<% end %>
+      <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
+        <table class="table table-hover table-inverse">
+            <tr>
+              <th>image</th>
+              <th>name</th>
+            </tr>
+            <tr>
+              <td class="image"><%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "60x60"  %></td>
+              <td class="name"><%=user.username %></td>
+              <td>フォロー数:<%=user.follower.count %></td>
+              <td>フォロワー数:<%=user.followed.count %></td>
+              <td class="show"><%=link_to"マイページへ",user_path(@user.id) %></td>
+            </tr>
+        </table>
+      <% end %>     
+    <% end %>
+
+</div>

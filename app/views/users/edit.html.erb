@@ -1,34 +1,46 @@
-<h1>編集</h1>
+<div class="container">
+  <h1>編集</h1>
+    <%=link_to "Back",user_path(@user)%>
+    <div class="row mt-5 offset-1">
+      <div class="col-lg-12">
+          <% if @user.errors.any? %>
+            <%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved: not successfully
 
-<% if @user.errors.any? %>
-  <%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved: not successfully
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>          
+          <% end %>
+  
+        <table class="table table-borderless">
+          <%= form_for @user do |f|%>
+            <tr>
+              <td>
+                <%=f.label :profile_image %>
+                <%= attachment_image_tag @user, :profile_image, :fill, 200,200, format: "jpeg", fallback: 'no-image.png', onClick: "$('.img_field').click()", class: "center-block img-thumbnail img-responsive img_prev pull-left profile-img", fallback: "no_image.jpg", :width => "200", :height => "200" %>
+                <%=f.attachment_field :profile_image, class: 'img_field'  %>
+              </td>
+            </tr>
+            <tr class="tr-size">            
+              <td><%=f.label :username %></td>
+              <td><%=f.text_field :username %></td>
+              
+            </tr>
+            <tr class="tr-size">
+              <td width="100"><%=f.label :email %></td>
+              <td><%=f.text_field :email %></td>
+            </tr>
+            <tr class="tr-size">                       
+              <td width="100"><%=f.label :profile %></td>
+              <td><%=f.text_field :profile,:size=>"30x10" %></td>
+            </tr>
+            <tr class="tr-size">
+              <td><%=f.submit"更新", class: "btn btn-primary" %></td>
+              <td><%= link_to "退会する", withdraw_user_path, class: "btn btn-danger mb-5" %></td>
+            </tr>      
+          <% end %>
+        </table>
+      </div>
 
-  <% @user.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-  <% end %>
-<% end %>
 
-
-
-<%= form_for @user do |f|%>
-
-<%=f.label :username %>
-<%=f.text_field :username %>
-
-
-<%=f.label :email %>
-<%=f.text_field :email %>
-
-<%=f.label :profile %>
-<%=f.text_field :profile,:size=>"30x10" %>
-
-<%=f.label :profile_image %>
-  <%= attachment_image_tag @user, :profile_image, :fill, 200,200, format: "jpeg", fallback: 'no-image.png', onClick: "$('.img_field').click()", class: "center-block img-thumbnail img-responsive img_prev pull-left profile-img", fallback: "no_image.jpg", :width => "200", :height => "200" %>
-  <div><%=f.attachment_field :profile_image, class: 'img_field'  %>
+    </div>
 </div>
-
-<%=f.submit"更新", class: "btn btn-primary btn-lg" %>
-<%= link_to "退会する", withdraw_user_path, class: "btn btn-danger mb-5" %>
-
-
-<% end %>

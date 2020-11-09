@@ -1,34 +1,34 @@
-<h1>chefs</h1>
+<div class="container">
+  <h1>chefs</h1>
 
+      <div class="ranking">
+        <% @users.each do |user| %>
+            <%= link_to user_path(user) do %>
+          <div class ="rank">
+              <%= attachment_image_tag user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
+            <% end %>        
+              <%=link_to user.username, user_path(user) %>         
+              <%= user.posts.count %>投稿
+              <div>
+                フォロー数:<%= user.follower.count %>
+              </div>
+              <div>
+                フォロワー数:<%= user.followed.count %>
+              </div>
+            <%# ログインしてるuserのid == user.id %>
+              <% unless current_user.id == user.id %>
+                <%if current_user.following?(user) %>  
+                  <%= link_to 'フォロー外す', unfollow_path(user.id), class: "btn btn-primary",method: :POST %>
+                <% else %>
+                  <%= link_to 'フォローする', follow_path(user.id), class: "btn btn-success", method: :POST %>
+                <% end %>
+              <% end %>    
+            </div> 
+        <% end %>
+      
+</div>   
 
-<% @users.each do |user| %>
-  <%= link_to user_path(user) do %>
-    <%= attachment_image_tag user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
-  <% end %>
-    <ul style="list-style: none;">
-    <li>
-    <%=link_to user.username, user_path(user) %>
-    
-    <%= user.posts.count %>投稿
-    </li>
-  </ul>
+<div class='rank mt-5'>
+  <%= paginate @users %>
+</div>
 
-  <div>
-    フォロー数:<%= user.follower.count %>
-  </div>
-  <div>
-    フォロワー数:<%= user.followed.count %>
-  </div>
-  <div>
-  
-  <%# ログインしてるuserのid == user.id %>
-  <% unless current_user.id == user.id %>
-    <%if current_user.following?(user) %>  
-      <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
-    <% else %>
-      <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
-    <% end %>
-  <% end %>
-  
-  </div>
-<% end %>

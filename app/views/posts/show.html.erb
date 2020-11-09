@@ -1,91 +1,93 @@
-<h1>Recipe detail</h1>
+<div class="container">
+  <h1>Recipe detail</h1>
+    <%=link_to user_path(@post.user) do %>
+      <%=@post.user.username%>さんのページへ
+    <% end %>
+    <div class="row mt-3 offset-2">    
+      <div class="col-lg-10">
+        <table>
+          <tr class="tr-size">
+            <th width="90">レシピ名</th>
+            <td width="220"><%=@post.title %> 
+              <% if @post.is_light==false %>
+                （増量レシピ）
+              <% else %>
+                （減量レシピ）
+              <% end %></td>
+            <th width="70">材料</th>
+            <td width="180"><%=simple_format @post.material %></td>
+          </tr>
+          <tr class="tr-size" >
+            <th width="90">カロリー</th>
+            <td width="260"><%=@post.calorie %>kcal</td>           
+          </tr>
+      </div>
+    </div>
+        
+          <tr class="tr-size" >
+            <td><%=attachment_image_tag @post, :image, size: "300x300" %></td>
+            <th width="70">説明</th>
+            <td width="250"><%=simple_format @post.body %></td>
+          </tr>
 
-SHEF: <%=@post.user.username%>
-<div>
-<%=link_to user_path(@post.user) do %>
-<%=@post.user.username%>さんのページへ
-<% end %>
+          <tr class="tr-size">
+            <th width="90">作り方</th>
+            <td><%=simple_format @post.procedure %></td>
+          </tr>
+
+          <tr class="tr-size">
+            <th>いいね</th>
+            <td>
+              <% if current_user.already_favorited?(@post) %>
+                <%= link_to post_favorites_path(@post),method: :delete do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+              <% else %>
+                <%= link_to post_favorites_path(@post),method: :post do %>
+                <i class="far fa-heart"></i>
+                <% end %>
+              <% end %>
+              <%= @post.favorites.count%>
+            </td>
+          </tr>
+          <tr>
+            <th>更新日</th>
+          </tr>
+          <tr>
+            <td><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+          </tr>
+
+          
+          <% @post.comments.each do |comment| %>
+            <tr>
+              <th>コメント<th>
+            </tr>
+            <tr>
+              <td><%= comment.comment %>
+              <% if comment.user == current_user %>
+                <%= link_to"消去",post_comments_path(comment), method: :delete,class: "btn btn-danger" %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to user_path(@user) do %>
+                  <%=comment.user.username%>
+                <% end %>
+              </td>
+            </tr> 
+          <% end %>
+        </table>
+
+        <%= form_for [@post, @comment] do |f| %>
+              <%= f.text_area :comment, :size=>"30x5" %>
+            <%= f.submit "送信" %>
+            <% end %>
+
+
+        <% if @post.user.id == current_user.id%>
+          <%=link_to"編集",edit_post_path(@post), class: "btn btn-success" %>
+        <% end %>
+
+
+
+
 </div>
-
-<table>
-  <tr>
-    <th>レシピ名</th>
-    <td><%=@post.title %></td>
-  </tr>
-
-  <tr>
-    <th>カロリー</th>
-    <td><%=@post.calorie %>kcal</td>
-  </tr>
-
-  <tr>
-    <td><%=attachment_image_tag @post, :image, size: "300x300" %></td>
-  </tr>
-
-  <tr>
-    <th>説明</th>
-    <td><%=simple_format @post.body %></td>
-  </tr>
-
-  <tr>
-    <th>材料</th>
-    <td><%=simple_format @post.material %></td>
-  </tr>
-
-  <tr>
-    <th>作り方</th>
-    <td><%=simple_format @post.procedure %></td>
-  </tr>
-
-  <tr>
-    <th>いいね</th>
-    <td>
-      <% if current_user.already_favorited?(@post) %>
-        <%= link_to post_favorites_path(@post),method: :delete do %>
-          <i class="fas fa-heart"></i>
-        <% end %>
-      <% else %>
-        <%= link_to post_favorites_path(@post),method: :post do %>
-        <i class="far fa-heart"></i>
-        <% end %>
-      <% end %>
-      <%= @post.favorites.count%>
-    </td>
-  </tr>
-  <tr>
-    <th>更新日</th>
-  </tr>
-  <tr>
-    <td><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
-  </tr>
-
-  
-  <% @post.comments.each do |comment| %>
-    <tr>
-      <th>コメント<th>
-    </tr>
-    <tr>
-      <td><%= comment.comment %>
-      <% if comment.user == current_user %>
-        <%= link_to"消去",post_comments_path(comment), method: :delete,class: "btn btn-danger" %>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to user_path(@user) do %>
-          <%=comment.user.username%>
-        <% end %>
-      </td>
-    </tr> 
-  <% end %>
-</table>
-
-<%= form_for [@post, @comment] do |f| %>
-			<%= f.text_area :comment %>
-		<%= f.submit "送信" %>
-		<% end %>
-
-
-<% if @post.user.id == current_user.id%>
-  <%=link_to"編集",edit_post_path(@post), class: "btn btn-success" %>
-<% end %>
-

@@ -1,6 +1,6 @@
 <div class="container">
   <h1>My page</h1>
-    <div class="row" mt-5>
+    <div class="row mt-5" >
       <div class="col-lg-10">
         <%= attachment_image_tag @user, :profile_image, size: "200x200", format: 'jpeg', class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg",size: "200x200" %>
 
@@ -30,16 +30,16 @@
             </td>
           </tr>
           <tr>
+            <th>Profile</th>
+            <td><%= @user.profile %></td>
+          </tr>
+
+          <tr>
           <% if @user.id == current_user.id%>
             <th>e-mail</th>
             <td><%= @user.email %></td>
           </tr>
-          <tr>
-            <th>Profile</th>
-            <td><%= @user.profile %></td>
-          </tr>
-          <tr>
-            <th><%=link_to"編集",edit_user_path(@user) %></th>
+            <th><%=link_to"編集",edit_user_path(@user), class: "btn btn-success" %></th>
             <%= link_to "退会する", withdraw_user_path, class: "btn btn-danger mb-5" %>
           </tr>          
           <% end %>      

@@ -1,14 +1,35 @@
-<h2>Body_Recipeとは</h2>
-<p>増量・減量ボディメイクに特化した料理投稿サイトです。今日からカロリーに注意して料理しませんか</p>
+<div class="container">
+    
+      <div class="row mt-5">
+        <h3>BodyRecipeとは<%= image_tag "eat1.jpg", alt: "eat1", id: "assets", class: "image", width: "80px" %></h3>
+        <div class="col-lg-12 mt-3">              
+          <p>増量・減量ボディメイクに特化した料理投稿サイトです。<br>
+            今日からカロリーに注意して料理しませんか</p>
+        </div> 
+      </div>
+    
+      <div class="row mt-3">
+        <h3>BodyRecipeの使い方<%= image_tag "eat2.jpg", alt: "eat1", id: "assets", class: "image", width: "80px" %></h3>
+      </div>
+      <div class="col-lg-12 mt-3">
+        <p>カロリー一覧を見てカロリーを確認しながら、レシピ投稿してみましょう</p>
+      </div>
 
-<h2>Body_Recipeの使い方</h2>
-<p>食材一覧を見てカロリーを確認しながら、レシピ投稿してみましょう</p>
 
-<h2>太れない、痩せれないかたへ</h2>
-<p>なぜかトレーニングしても太れない、痩せれないという事があると思います。<br>
-ボディメイクにはトレーニングだけではなく他に睡眠・食事が大切です。<br>
-このサイトでは食事面であなたのボディメイクを手助けできることを願っています。
-</p>
+      <div class="row mt-5">
+        <h3>太れない、痩せれないかたへ<%= image_tag "run1.jpg", alt: "run1", id: "assets", class: "image", width: "80px" %></h3>
+      </div>
+      <div class="col-lg-12 mt-3">              
+        <p>なぜかトレーニングしても太れない、痩せれないという事があると思います。<br>
+        ボディメイクにはトレーニングだけではなく他に睡眠・食事が大切です。<br>
+        このサイトでは食事面であなたのボディメイクを手助けできることを願っています。
+        </p>
+      </div>
+
+      <div class="row mt-5 offset-5">
+        <p><%= link_to "会員登録してBodyRecipeを使う", new_user_registration_path%>
+      </div>
+</div>
 
 
 

@@ -1,32 +1,46 @@
-<h1>nitiha</h1>
+<div class="container">
+<h2>カロリー登録</h2>
+  <div class="row mt-5">
+      <% if @calorie.errors.any? %>
+        <%= pluralize(@calorie.errors.count, "error") %> prohibited this object from being saved: not successfully
 
-<% if @calorie.errors.any? %>
-  <%= pluralize(@calorie.errors.count, "error") %> prohibited this object from being saved: not successfully
+        <% @calorie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      <% end %>
 
-  <% @calorie.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-  <% end %>
-<% end %>
-
-
-
-
-<%=form_for @calorie, url:admin_calories_path, method: :post do |f| %>
-
-<%=f.label :name, "材料名" %>
-<%=f.text_field :name %>
-
-<%=f.label :weight, "重量" %>
-<%=f.text_field :weight %>g
-
-<%# <%=f.label :calorie, " "%> 
-<%=f.text_field :calorie %>Kcal
-
-<%=f.label :"カテゴリー" %>
-  <%=f.radio_button :is_active, :true %>
-    <%=f.label:有効,class: "is_active_label" %>
-  <%=f.radio_button :is_active, :false %>
-    <%=f.label:無効,class: "is_active_label" %>
-
-<%=f.submit %>
-<% end %>
+      <%=form_for @calorie, url:admin_calories_path, method: :post do |f| %>
+        <table>
+          <tr class="tr-size col mt-3">
+            <td width="70"><%=f.label :name, "材料名" %><td>
+            <td><%=f.text_field :name %></td>
+          </tr>
+          <tr class="tr-size col mt-3">
+            <td width="70"><%=f.label :yomi, "ふりがな" %><td>
+            <td><%=f.text_field :yomi %></td>
+          </tr>
+          <tr class="tr-size col mt-3">
+            <td width="70"><%=f.label :weight, "重量" %></td>
+            <td><%=f.text_field :weight %>g</td>
+          </tr>
+          <tr class="tr-size col mt-3">
+            <td width="70">カロリー</td>
+            <td><%=f.text_field :calorie %>Kcal</td>
+          </tr>
+          <tr class="tr-size col mt-3">
+            <td><%=f.label :"カテゴリー" %>
+              <%=f.radio_button :is_active, :true %>
+                <%=f.label:有効,class: "is_active_label" %>
+              <%=f.radio_button :is_active, :false %>
+                <%=f.label:無効,class: "is_active_label" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%=f.submit %>
+            </td>
+          </tr>
+        </table>
+        <% end %>
+  </div>
+</div>

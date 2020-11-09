@@ -4,15 +4,15 @@
     
     <h4 class="col-lg-2">
       <%if params[:is_light] == "false" %>
-       増量メニュー<%=link_to"一覧へ戻る",posts_path %>
+       増量メニュー<br><%=link_to"一覧へ戻る",posts_path %>
       <%elsif params[:is_light] == "true" %>
-        減量メニュー<%=link_to"一覧へ戻る",posts_path %>
+        減量メニュー<br><%=link_to"一覧へ戻る",posts_path %>
       <%end %>
         <div>
-          <%= link_to '減量', posts_path(is_light: true) %>
-        </div>
+          <%= link_to '減量', posts_path(is_light: true),class: "btn btn-primary btn-lg" %>
+        </div><br>
         <div>
-          <%= link_to '増量', posts_path(is_light: false) %>
+          <%= link_to '増量', posts_path(is_light: false),class: "btn btn-danger btn-lg" %>
         </div>     
     </h4>  
     <div class="col-lg-10 offset-lg-4">
@@ -73,6 +73,7 @@
           </tr>                
         <% end %>
       </table>
+      <%= paginate @posts %>
     </div>
   </div>
 </div>

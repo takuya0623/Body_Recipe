@@ -2,8 +2,8 @@ class Admin::CaloriesController < ApplicationController
   before_action :authenticate_admin_admin!
   
   def index
-    @calories = Calorie.order("name")
-    
+    @calories = Calorie.order("yomi")
+
   end
   
   def new
@@ -42,6 +42,6 @@ class Admin::CaloriesController < ApplicationController
 
 private
   def calorie_params
-    params.require(:calorie).permit(:name, :weight, :calorie, :is_active)
+    params.require(:calorie).permit(:name, :weight, :calorie,:yomi, :is_active)
   end
 end

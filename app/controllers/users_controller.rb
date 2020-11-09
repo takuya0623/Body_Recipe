@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.where(is_deleted: false)
+    @users = User.page(params[:page]).per(4).where(is_deleted: false)
   end
 
   def show
