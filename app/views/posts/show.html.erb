@@ -53,8 +53,8 @@
           <tr>
             <th>更新日</th>
           </tr>
-          <tr>
-            <td><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <tr class= "row mb-5 ">
+            <td ><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
           </tr>
 
           
@@ -62,13 +62,13 @@
             <tr>
               <th>コメント<th>
             </tr>
-            <tr>
-              <td><%= comment.comment %>
-              <% if comment.user == current_user %>
+            <tr class="tr-size">
+              <td width="270" ><%= comment.comment %></td>
+              <td><% if comment.user == current_user %>
                 <%= link_to"消去",post_comments_path(comment), method: :delete,class: "btn btn-danger" %>
                 <% end %>
               </td>
-              <td>
+              <td>ユーザー：
                 <%= link_to user_path(@user) do %>
                   <%=comment.user.username%>
                 <% end %>
@@ -78,7 +78,7 @@
         </table>
 
         <%= form_for [@post, @comment] do |f| %>
-              <%= f.text_area :comment, :size=>"30x5" %>
+              <%= f.text_area :comment, :size=>"30x5",placeholder: "コメントを入力してください" %>
             <%= f.submit "送信" %>
             <% end %>
 
