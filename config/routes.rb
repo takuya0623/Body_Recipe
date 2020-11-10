@@ -24,6 +24,7 @@ end
   end
   
   get 'user/calories' => 'calories#index', as: 'calories'
+  get 'search' => 'search#search'
   
   post 'follow/:id' => 'relationships#follow', as: 'follow' # フォローする
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す

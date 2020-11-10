@@ -1,9 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-4">
-      <h2 class="mb-5">カロリー一覧</h2>
+      <h2 class>カロリー一覧</h2>
+      <p class="mb-5">(五十音順並び）</p>
       </div>
   </div>
+
+<div class="row mb-3 offset-3">
+  <p>検索</p>
+  <%= form_tag(search_path, method: :get) do %>
+    <%= text_field_tag :search, '',:size=>"30x5",placeholder: 'Search'%>
+  <% end %>
+</div>
+  
   <div class="row">
     <div class="col-8 offset-2">      
         <table class="table table-hover">
@@ -26,6 +35,7 @@
             </tr>
             <% end %>
         </table>
+        <%= paginate @calories %>
     </div>    
   </div>
 <div class="container">
