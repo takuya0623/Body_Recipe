@@ -20,28 +20,31 @@
     <div class="col-lg-8 mt-5">
     <h2>ランキング<i class="fas fa-crown" style="color:yellow;"></i></h2>
     <p>(いいね数が同じ場合、更新日順になります)</p>
-    <div class="ranking">
-      <% @all_ranks.each.with_index(1) do |post,i| %>
-        <div class="rank">
-          <div>
-          第<%=i%>位
-            <%=link_to post_path(post) do %>
-              <%=post.title%>
-            <% end %>
-            <% if post.is_light==false %>
-            （増量レシピ）
-            <% else %>
-            （減量レシピ）
-            <% end %>        
-          </div>
-            <%=attachment_image_tag post, :image, size: "150x150" %>
-          <div>
-            いいね<%=post.favorites.count%>
-          </div>
+    <div class="card">
+      <div class="card-content">
+        <div class="ranking">
+          <% @all_ranks.each.with_index(1) do |post,i| %>
+            <div class="rank">
+              <div>
+              第<%=i%>位
+                <%=link_to post_path(post) do %>
+                  <%=post.title%>
+                <% end %>
+                <% if post.is_light==false %>
+                （増量レシピ）
+                <% else %>
+                （減量レシピ）
+                <% end %>        
+              </div>
+                <%=attachment_image_tag post, :image, size: "150x150" %>
+              <div>
+                いいね<%=post.favorites.count%>
+              </div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
-
     </div>  
   </div>
 </div>

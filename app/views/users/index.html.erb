@@ -1,7 +1,7 @@
 <div class="container">
   <h1>chefs</h1>
-
-      <div class="ranking">
+  
+    <div class="ranking">
         <% @users.each do |user| %>
             <%= link_to user_path(user) do %>
           <div class ="rank">
@@ -24,10 +24,9 @@
                 <% end %>
               <% end %>    
             </div> 
-        <% end %>
-      
-</div>   
-
+        <% end %>     
+    </div>   
+  
 <div class='rank mt-5'>
   <%= paginate @users %>
 </div>

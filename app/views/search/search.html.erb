@@ -1,20 +1,27 @@
+<div class="container">
 <h4 class="mt-4 ml-5 mb-2">カロリー検索結果</h4>
-  <% if @calories.present? %>
-    <table class="table table-striped table-hover mb-5">
-        <thead>
-          <tr>
-            <th>食材</th>
-            <th>重量（g）</th>
-            <th>Kcal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @calories.each do |calorie| %>
-          <tr>
-            <td><%= calorie.name %></td>
-            <td><%= calorie.weight %></td>
-            <td><%= calorie.calorie%></td>
-          </tr>
-          <% end %>
-    </table>
-  <% end %>
+    <div class="row mt-5 offset-1">
+      <% if @calories.present? %>
+        <table class="table table-striped table-hover mb-5">
+            <thead>
+              <tr>
+                <th>食材</th>
+                <th>重量（g）</th>
+                <th>Kcal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @calories.each do |calorie| %>
+              <tr>
+                <td><%= calorie.name %></td>
+                <td><%= calorie.weight %></td>
+                <td><%= calorie.calorie%></td>
+              </tr>
+              <% end %>
+        </table>
+      <% else %>
+        <p>該当はありません</p>
+      <% end %>
+    </div>
+
+</div>
